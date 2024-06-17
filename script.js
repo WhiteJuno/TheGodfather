@@ -1,103 +1,88 @@
-// Definir la lista de usuarios
-const defaultUsers = [
-    { username: 'Are', password: 'pass1', balance: 1000, isAdmin: false },
-    { username: 'Pam', password: 'pass2', balance: 1500, isAdmin: false },
-    { username: 'Nath', password: 'pass3', balance: 2000, isAdmin: false },
-    { username: 'Lin', password: 'pass4', balance: 2500, isAdmin: false },
-    { username: 'Osc', password: 'pass5', balance: 3000, isAdmin: false },
-    { username: 'Memo', password: 'pass6', balance: 3500, isAdmin: false },
-    { username: 'Gali', password: 'pass7', balance: 4000, isAdmin: false },
-    { username: 'Dani', password: 'pass8', balance: 4500, isAdmin: false },
-    { username: 'Esme', password: 'pass9', balance: 5000, isAdmin: false },
-    { username: 'Vero', password: 'pass10', balance: 5500, isAdmin: false },
-    { username: 'Armando', password: 'pass11', balance: 6000, isAdmin: false },
-    { username: 'Mich', password: 'pass12', balance: 6500, isAdmin: false },
-    { username: 'Jon', password: 'pass13', balance: 7000, isAdmin: false },
-    { username: 'Pao', password: 'pass14', balance: 7500, isAdmin: false },
-    { username: 'TL_Ann', password: 'GoodAni', balance: 9000, isAdmin: true },
-    { username: 'SuperAdmin', password: 'Esme', balance: 10000, isAdmin: true },
-    { username: 'Val', password: 'ValIPT', balance: 11000, isAdmin: true },
+const users = [
+    { username: 'Anette', password: 'Goodani', balance: 1000, isAdmin: true, team: 'Admin' },
+    { username: 'Esme', password: 'Alakay', balance: 500, isAdmin: false, team: 'Equipo Anette' },
+    { username: 'Guillermo', password: 'lmao', balance: 300, isAdmin: false, team: 'Equipo Anette' },
+    { username: 'Hum', password: 'Hum1', balance: 700, isAdmin: false, team: 'Equipo Humberto' },
+    { username: 'humberto_user2', password: 'humberto_pass2', balance: 400, isAdmin: false, team: 'Equipo Humberto' },
+    { username: 'Di', password: 'Di1', balance: 800, isAdmin: false, team: 'Equipo Diana' },
+    { username: 'diana_user2', password: 'diana_pass2', balance: 200, isAdmin: false, team: 'Equipo Diana' },
+    // Añade más usuarios según sea necesario
 ];
-
-// Cargar los usuarios desde localStorage o usar los usuarios por defecto
-let users = JSON.parse(localStorage.getItem('users')) || defaultUsers;
-
-let currentUser = null;
-
-function saveUsersToLocalStorage() {
-    localStorage.setItem('users', JSON.stringify(users));
-}
 
 function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    currentUser = users.find(u => u.username === username && u.password === password);
 
-    if (currentUser) {
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'block';
-        document.getElementById('user-info').innerHTML = `<h3>Bienvenido, ${username}</h3><p>Saldo actual: $${currentUser.balance}</p>`;
+    const user = users.find(u => u.username === username && u.password === password);
 
-        if (currentUser.isAdmin) {
-            document.getElementById('admin-controls').style.display = 'block';
-            loadUserList();
+    if (user) {
+        if (user.isAdmin) {
+            showAdminScreen(user);
         } else {
-            document.getElementById('admin-controls').style.display = 'none';
+            showDashboardScreen(user);
         }
     } else {
         alert('Usuario o contraseña incorrectos');
     }
 }
 
-function logout() {
-    document.getElementById('login').style.display = 'block';
-    document.getElementById('dashboard').style.display = 'none';
-    document.getElementById('username').value = '';
-    document.getElementById('password').value = '';
-    currentUser = null;
+function showDashboardScreen(user) {
+    document.getElementById('login-screen').classList.remove('active');
+    document.getElementById('dashboard-screen').classList.add('active');
+    document.getElementById('user-name').textContent = user.username;
+    document.getElementById('user-balance').textContent = user.balance;
 }
 
-function loadUserList() {
-    const userList = document.getElementById('user-list');
-    userList.innerHTML = '';
+function showAdminScreen(user) {
+    document.getElementById('login-screen').classList.remove('active');
+    document.getElementById('admin-screen').classList.add('active');
+    document.getElementById('admin-name').textContent = user.username;
 
-    users.forEach(user => {
-        const userDiv = document.createElement('div');
-        userDiv.innerHTML = `<p>${user.username} - Saldo: $${user.balance}</p>`;
-        userDiv.innerHTML += `<button onclick="openModal('${user.username}')">Modificar Saldo</button>`;
-        userList.appendChild(userDiv);
+    const teams = ['Equipo Anette', 'Equipo Humberto', 'Equipo Diana'];
+    const teamsTables = document.getElementById('teams-tables');
+    teamsTables.innerHTML = ''; // Limpiar tablas
+
+    teams.forEach(team => {
+        const teamMembers = users.filter(u => u.team === team);
+        if (teamMembers.length > 0) {
+            const teamTable = document.createElement('div');
+            teamTable.innerHTML = `
+                <h3>${team}</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Saldo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${teamMembers.map(member => `
+                            <tr>
+                                <td>${member.username}</td>
+                                <td>${member.balance}</td>
+                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            teamsTables.appendChild(teamTable);
+        }
     });
 }
 
-function openModal(username) {
-    const user = users.find(u => u.username === username);
-    if (user) {
-        document.getElementById('modal-username').innerText = `Modificar saldo de ${username}`;
-        document.getElementById('new-balance').value = user.balance;
-        document.getElementById('modifyBalanceModal').style.display = 'flex';
-        document.querySelector('.container').classList.add('blur');
-        document.getElementById('new-balance').dataset.username = username;
+function modifyUser(index) {
+    const newBalance = prompt('Nuevo saldo para ' + users[index].username + ':');
+    if (newBalance !== null) {
+        users[index].balance = parseFloat(newBalance);
+        showAdminScreen(users.find(u => u.isAdmin));
     }
 }
 
-function closeModal() {
-    document.getElementById('modifyBalanceModal').style.display = 'none';
-    document.querySelector('.container').classList.remove('blur');
+function logout() {
+    document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+    document.getElementById('login-screen').classList.add('active');
 }
 
-function updateBalance() {
-    const username = document.getElementById('new-balance').dataset.username;
-    const newBalance = document.getElementById('new-balance').value;
-
-    if (newBalance !== null && !isNaN(newBalance) && newBalance.trim() !== '') {
-        const user = users.find(u => u.username === username);
-        if (user) {
-            user.balance = parseFloat(newBalance);
-            saveUsersToLocalStorage();
-            loadUserList();
-            closeModal();
-        }
-    } else {
-        alert('Por favor, ingrese un saldo válido.');
-    }
-}
+document.getElementById('login-screen').classList.add('active');
