@@ -192,7 +192,6 @@ function showAdminScreenANETTE(user) {
                         <tr>
                             <th>Usuario</th>
                             <th>Saldo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -200,7 +199,6 @@ function showAdminScreenANETTE(user) {
                             <tr>
                                 <td><h3>${member.name}</h3></td>
                                 <td><h3>$${member.balance}<h3></td>
-                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -232,7 +230,6 @@ function showAdminScreenHUM(user) {
                         <tr>
                             <th>Usuario</th>
                             <th>Saldo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -240,7 +237,6 @@ function showAdminScreenHUM(user) {
                             <tr>
                                 <td><h3>${member.name}</h3></td>
                                 <td><h3>$${member.balance}<h3></td>
-                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -272,7 +268,6 @@ function showAdminScreenDI(user) {
                         <tr>
                             <th>Usuario</th>
                             <th>Saldo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -280,7 +275,6 @@ function showAdminScreenDI(user) {
                             <tr>
                                 <td><h3>${member.name}</h3></td>
                                 <td><h3>$${member.balance}<h3></td>
-                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -312,7 +306,6 @@ function showAdminScreenBAR(user) {
                         <tr>
                             <th>Usuario</th>
                             <th>Saldo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -320,7 +313,6 @@ function showAdminScreenBAR(user) {
                             <tr>
                                 <td><h3>${member.name}</h3></td>
                                 <td><h3>$${member.balance}<h3></td>
-                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -352,7 +344,6 @@ function showAdminScreenMAR(user) {
                         <tr>
                             <th>Usuario</th>
                             <th>Saldo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -360,7 +351,6 @@ function showAdminScreenMAR(user) {
                             <tr>
                                 <td><h3>${member.name}</h3></td>
                                 <td><h3>$${member.balance}<h3></td>
-                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -375,7 +365,6 @@ function showAdminScreenMAR(user) {
 function showAdminScreenCAR(user) {
     document.getElementById('login-screen').classList.remove('active');
     document.getElementById('admin-screen').classList.add('active');
-    document.getElementById('admin-name').textContent = user.name;
 
     const teams = ['Equipo US Carlos', ];
     const teamsTables = document.getElementById('teams-tables');
@@ -392,7 +381,6 @@ function showAdminScreenCAR(user) {
                         <tr>
                             <th>Usuario</th>
                             <th>Saldo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -400,7 +388,6 @@ function showAdminScreenCAR(user) {
                             <tr>
                                 <td><h3>${member.name}</h3></td>
                                 <td><h3>$${member.balance}<h3></td>
-                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -432,7 +419,6 @@ function showAdminScreenBRE(user) {
                         <tr>
                             <th>Usuario</th>
                             <th>Saldo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -440,7 +426,6 @@ function showAdminScreenBRE(user) {
                             <tr>
                                 <td><h3>${member.name}</h3></td>
                                 <td><h3>$${member.balance}<h3></td>
-                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -472,7 +457,6 @@ function showAdminScreenMIG(user) {
                         <tr>
                             <th>Usuario</th>
                             <th>Saldo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -480,7 +464,6 @@ function showAdminScreenMIG(user) {
                             <tr>
                                 <td><h3>${member.name}</h3></td>
                                 <td><h3>$${member.balance}<h3></td>
-                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -512,7 +495,6 @@ function showAdminScreenVAN(user) {
                         <tr>
                             <th>Usuario</th>
                             <th>Saldo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -520,7 +502,6 @@ function showAdminScreenVAN(user) {
                             <tr>
                                 <td><h3>${member.name}</h3></td>
                                 <td><h3>$${member.balance}<h3></td>
-                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -555,7 +536,6 @@ function showAdminScreenSuperadmin(user) {
                         <tr>
                             <th>Usuario</th>
                             <th>Saldo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -563,7 +543,6 @@ function showAdminScreenSuperadmin(user) {
                             <tr>
                                 <td><h3>${member.name}</h3></td>
                                 <td><h3>$${member.balance}<h3></td>
-                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -595,7 +574,6 @@ function showAdminScreenSuperadminSertec(user) {
                         <tr>
                             <th>Usuario</th>
                             <th>Saldo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -603,7 +581,7 @@ function showAdminScreenSuperadminSertec(user) {
                             <tr>
                                 <td><h3>${member.name}</h3></td>
                                 <td><h3>$${member.balance}<h3></td>
-                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
+                                
                             </tr>
                         `).join('')}
                     </tbody>
@@ -621,6 +599,9 @@ function showDashboardScreen(user) {
     document.getElementById('user-balance').textContent = user.balance;
 }
 
+
+// <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td> // Boton para modificar saldos de usuarios
+// Recuerda añadir tambien en la secccion de Usuai¿rios y saldo de las tablas un <td>Acciones</td> para añadir la 3a columna
 function modifyUser(index) {
     const newBalance = prompt('Nuevo saldo para ' + users[index].username + ':');
     if (newBalance !== null) {
