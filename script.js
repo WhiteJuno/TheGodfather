@@ -131,6 +131,7 @@ const users = [
 // ---    SUPER ADMINS    ---
     { username: 'b', password: 'b', name: "Valeria Mitzeri", isAdmin: true, }, //Val aún no tiene user!!!
     { username: 'juno', password: 'alakay', name: "Esmeralda Monroy", isAdmin: true, isSuperadmin: true, },
+    { username: 'ggarc18', password: '6142385', name: "Gustavo García", isAdmin: true, isSuperadminSertec: true, },
 ];
 
 function login() {
@@ -160,6 +161,8 @@ function login() {
             showAdminScreenVAN(user);
         } else if (user.isAdmin && user.isSuperadmin) {
             showAdminScreenSuperadmin(user);
+        } else if (user.isAdmin && user.isSuperadminSertec) {
+            showAdminScreenSuperadminSertec(user);
         } else {
             showDashboardScreen(user);
         }
@@ -538,6 +541,46 @@ function showAdminScreenSuperadmin(user) {
         "Equipo IPT Anette", 'Equipo IPT Humberto', "Equipo IPT Diana", 
         "Equipo US Barbara", "Equipo US Mariana", "Equipo US Carlos", 
         "Equipo SERTEC Brenda", "Equipo SERTEC Miguel", "Equipo SERTEC Vania", ];
+    const teamsTables = document.getElementById('teams-tables');
+    teamsTables.innerHTML = ''; // Limpiar tablas
+
+    teams.forEach(team => {
+        const teamMembers = users.filter(u => u.team === team);
+        if (teamMembers.length > 0) {
+            const teamTable = document.createElement('div');
+            teamTable.innerHTML = `
+                <h1>${team}</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Saldo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${teamMembers.map(member => `
+                            <tr>
+                                <td><h3>${member.name}</h3></td>
+                                <td><h3>$${member.balance}<h3></td>
+                                <td><button class="modify" onclick="modifyUser(${users.indexOf(member)})">Modificar</button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            teamsTables.appendChild(teamTable);
+        }
+    });
+}
+
+//SUPERADMIN SERTEC (GUSTAVO)
+function showAdminScreenSuperadminSertec(user) {
+    document.getElementById('login-screen').classList.remove('active');
+    document.getElementById('admin-screen').classList.add('active');
+    document.getElementById('admin-name').textContent = user.name;
+
+    const teams = ["Equipo SERTEC Brenda", "Equipo SERTEC Miguel", "Equipo SERTEC Vania", ];
     const teamsTables = document.getElementById('teams-tables');
     teamsTables.innerHTML = ''; // Limpiar tablas
 
